@@ -1,0 +1,87 @@
+topology:
+  name: ATD
+  cvpaddress: 192.168.1.220
+  username: arista
+  password: themostsecurepassword
+cv:
+  nodes:
+    -192.168.1.220
+  port: 9910
+  auth:
+    cert: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhc2V0SUQiOjMsImV4cCI6MTY4MDY0MDgwOSwia2lkIjoiODMxMzBmY2NhYTg1ZGYwNCIsIm5iZiI6MTY4MDU1NDQwOSwicmVlbnJvbGxEZXZpY2VzIjpbIioiXX0.VwrT7S4U5hTZxuSx2lwdnAOYh-esW78xb8G10gDnwMSxBZ3b4h8aWRTi-bUWl12FLfgwddsX9atVDnhRtMU4g8sAjTqGK1XEZOdqT1mLR_ArcqyP6KoPpH64utVoRYAZhb02YNMJD22KpaowYBcGNPu2HOwES2a0PkgHfxM3RCas54wBf-m1ROWxnxj6rzlJ7K270mD9GrJHedVNnqHfoj_pgHkq9aOGUL-75UfJ6TvWOrekPSzp9dm3Z-XWxeuPD9CAvMjyf6c5-pWeiDWZJy4dDOwXsPxttHCHnbPpCvEPaguuCaRUZALP60_eh7Rd-Yp5lbmcyqVmDsAWkEyapJFcNa3jTFxi_-X0_SJ0x1qGSsQhSciOM28Dp62tzlt0TZhtfanaRfWBU4H9U93CVvLyMwIQ4qg2t7wzRD3fUNccClpm2aO-S7HY9FEQi8idusriIDyyNaAe0cUCjBpnu4D1rxnqix5-GoSlPLxuGz2NJupL4LUO32sFf6d6F4ylkuZwlxQ7dZGCnmrxlxkxA6B7NoLae9VLGaLCTJ5n79gKt8NUUE2jrQgrU7tvNb4Ak8tvJ7BemehG4nxkdQa_urdAxD2Wii3FreLwDM9qbEtBGHanJKXc3s6u_TLvUNjpvKFuXPQHj_YpaJVkZNcI_ENXu1nKQ4qguMRpcI5--j8
+    path: /mnt/flash
+infra:
+  bridge: bridge0
+  vrf: MGMT
+  gateway: 192.168.1.1
+images:
+  registry: local
+  ceos: 4.28.1.1F
+  host: 1.0
+links:
+  - [["spine1", "et1"], ["spine2", "et1"]]
+  - [["spine1", "et2"], ["leaf1", "et2"]]
+  - [["spine1", "et3"], ["leaf2", "et2"]]
+  - [["spine1", "et4"], ["leaf3", "et2"]]
+  - [["spine1", "et5"], ["leaf4", "et2"]]
+  - [["spine1", "et6"], ["spine2", "et6"]]
+  - [["spine2", "et2"], ["leaf1", "et3"]]
+  - [["spine2", "et3"], ["leaf2", "et3"]]
+  - [["spine2", "et4"], ["leaf3", "et3"]]
+  - [["spine2", "et5"], ["leaf4", "et3"]]
+  - [["leaf1", "et1"], ["leaf2", "et1"]]
+  - [["leaf1", "et4"], ["host1", "et1"]]
+  - [["leaf1", "et5"], ["host1", "et3"]]
+  - [["leaf1", "et6"], ["leaf2", "et6"]]
+  - [["leaf2", "et4"], ["host1", "et2"]]
+  - [["leaf2", "et5"], ["host1", "et4"]]
+  - [["leaf2", "et6"], ["host1", "et6"]]
+  - [["leaf3", "et1"], ["leaf4", "et1"]]
+  - [["leaf3", "et4"], ["host2", "et1"]]
+  - [["leaf3", "et5"], ["host2", "et3"]]
+  - [["leaf3", "et6"], ["leaf4", "et6"]]
+  - [["leaf4", "et4"], ["host2", "et2"]]
+  - [["leaf4", "et5"], ["host2", "et4"]]
+  - [["leaf4", "et6"], ["host2", "et6"]]
+nodes:
+  - spine1:
+    mac: 00:1c:73:f0:c6:01
+    ip_addr: 192.168.1.230
+  - spine2:
+    mac: 00:1c:73:f1:c6:01
+    ip_addr: 192.168.1.231
+  - leaf1:
+    mac: 00:1c:73:f2:c6:01
+    ip_addr: 192.168.1.232
+  - leaf2:
+    mac: 00:1c:73:f3:c6:01
+    ip_addr: 192.168.1.233
+  - leaf3:
+    mac: 00:1c:73:f4:c6:01
+    ip_addr: 192.168.1.234
+  - leaf4:
+    mac: 00:1c:73:f5:c6:01
+    ip_addr: 192.168.1.235
+hosts:
+  - host1:
+    mac: 00:1c:73:f7:c6:01
+    ip_addr: 192.168.1.236
+  - host2:
+    mac: 00:1c:73:f8:c6:01
+    ip_addr: 192.168.1.237
+iperf:
+commands:
+  mlag:
+    pre: 'MLAG'
+  bgp:
+    pre: 'BGP'
+  vxlan:
+    pre: 'VXLAN'
+  l2evpn:
+    pre: 'L2EVPN'
+  l3evpn:
+    pre: 'L3EVPN'
+  cvp:
+    pre: 'CVP'
+  base:
+    pre: 'BASE'

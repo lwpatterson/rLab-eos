@@ -1,0 +1,86 @@
+topology:
+  name: L2
+  vforward: 1
+  cvpaddress: 192.168.49.12
+  cvp-key: rob-lab
+  username: arista
+  password: $6$BSMT1WbtoeKM/hK4$kJxcK/KXv4shkWUb9y5MOgNG6EUmmHR5fR4BM2e4uKtXB74lXL1fncHNC0d4xUcW86OJeYapbFZtBdjStkEqv.
+infra:
+  bridge: vmgmt
+  vrf: MGMT
+  gateway: 192.168.50.1
+images:
+  registry: local
+  ceos: 4.28.0F
+  host: 1.0
+links:
+  - [["spine1", "et1"], ["spine2", "et1"]]
+  - [["spine1", "et2"], ["leaf1", "et1"]]
+  - [["spine1", "et3"], ["leaf2", "et1"]]
+  - [["spine1", "et4"], ["leaf3", "et1"]]
+  - [["spine2", "et2"], ["leaf1", "et2"]]
+  - [["spine2", "et3"], ["leaf2", "et2"]]
+  - [["spine2", "et4"], ["leaf3", "et2"]]
+  - [["leaf1", "et3"], ["host10", "et0"]]
+  - [["leaf1", "et4"], ["host11", "et0"]]
+  - [["leaf2", "et3"], ["host20", "et0"]]
+  - [["leaf2", "et4"], ["host21", "et0"]]
+  - [["leaf3", "et3"], ["host30", "et0"]]
+  - [["leaf3", "et4"], ["host31", "et0"]]
+
+nodes:
+  - spine1:
+    mac: 00:1c:73:b0:c6:01
+    ip_addr: 192.168.50.21
+  - spine2:
+    mac: 00:1c:73:b1:c6:01
+    ip_addr: 192.168.50.22
+  - leaf1:
+    mac: 00:1c:73:b2:c6:01
+    ip_addr: 192.168.50.23
+  - leaf2:
+    mac: 00:1c:73:b3:c6:01
+    ip_addr: 192.168.50.24
+  - leaf3:
+    mac: 00:1c:73:b4:c6:01
+    ip_addr: 192.168.50.25
+hosts:
+  - host10:
+    ip_addr: 10.0.12.11
+    mask: 255.255.255.0
+    gateway: 10.0.12.1
+  - host11:
+    ip_addr: 10.0.13.11
+    mask: 255.255.255.0
+    gateway: 10.0.13.1
+  - host20:
+    ip_addr: 10.0.12.21
+    mask: 255.255.255.0
+    gateway: 10.0.12.1
+  - host21:
+    ip_addr: 10.0.13.21
+    mask: 255.255.255.0
+    gateway: 10.0.13.1
+  - host30:
+    ip_addr: 10.0.12.31
+    mask: 255.255.255.0
+    gateway: 10.0.12.1
+  - host31:
+    ip_addr: 10.0.13.31
+    mask: 255.255.255.0
+    gateway: 10.0.13.1
+iperf:
+  port: 5010
+  brate: 1000000
+  servers:
+    - host10
+    - host30
+    - host31
+  clients:
+    - client: host11
+      target: host30
+    - client: host20
+      target: host10
+    - client: host21
+      target: host31
+commands:

@@ -1,0 +1,107 @@
+topology:
+  name: L2
+  vforward: 1
+  cvpaddress: 192.168.1.220
+  username: arista
+  password: $6$Y7uP5tdJ0orz3TPa$FgDYPrKY2SEApGM0t5adUQr7mqPzj.e4yUAYFGj1AbmX4kTE.7lQ/c9xcrsGYGXL2GrMw4OFMQh1G4TmDT0Pc0
+cv:
+  nodes: 
+    - 192.168.1.220
+  port: 9910
+  auth:
+    cert: eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhc2V0SUQiOjMsImV4cCI6MTY5NjYyNDYyNiwia2lkIjoiOTY4MGQ5MTc0MzY3YjVjYyIsIm5iZiI6MTY5NjAxOTgyNiwicmVlbnJvbGxEZXZpY2VzIjpbIioiXX0.srStMRJqaaI-bq5UAiSLxhUX8a0hehJJxhgRy0qWoQV_WWBAjf5fzlIdKF1Vb-Tjx48XRm7w84WyHNaonAMdVXTZqZ3XdwvP5A2GfamiKWnCmkVwa8w8RtjPxR7GLDheJNZIP6m7ELAt4HMMNpwAeDPYhErJVq1Fojho9UYPFfOFWyBT6qhlsiNnUQF_R10G5LYJ52h7HWj0X6DH4m81bzy_h5bSz6rJwqb4g4RBrmERH1FGLLAJmTS2w5vVGYfw7UbcjGloUifwC1gweGBgWaeDix9VI8Uj_jra-7X-6eLF5OTm7XOHp-VyhQosc5i5CT-GntiXC_GlGi8yjIDvCn1SuOQWcIqZpTlU9oovVMS6OreyAISFX4Of0T-iokmh6F_OIS_V7Xy_VKARAVbOa8ZYXlNO0J2G5R8XZ6xfQs2zjL8QOFUNH1E9urrwVx5sWHp1cpSAQM5QFErqsCb7vILGx5LmEWCcQlY10PDHqYr1rw_NUBJuaUJ6WFoUc4HNp3PoM6fXA5vOFjWLJpc-nIbjsCUtZdTIRiTCwOd8Gp0xRIwv927XEsB9Gdy7YLJeeHBZoDC1SK5UnEcRqI5lPDvFWnYn4jDIDOK44h0L3vlpT_8G694JCp76j-B4PtJxl7cD1i-AOrOGGVZ9JY8DYoZgAdPNI32llnyoWfeGNi0
+    path: /mnt/flash
+infra:
+  bridge: bridge0
+  vrf: MGMT
+  gateway: 192.168.1.1
+  mac_mgmt: False
+images:
+  registry: local
+  ceos: 4.28.1.1F
+  host: 1.0
+links:
+  - [["spine1", "et1"], ["spine2", "et1"]]
+  - [["spine1", "et2"], ["leaf1", "et1"]]
+  - [["spine1", "et3"], ["leaf2", "et1"]]
+  - [["spine1", "et4"], ["leaf3", "et1"]]
+  - [["spine1", "et5"], ["leaf4", "et1"]]
+  - [["spine2", "et2"], ["leaf1", "et2"]]
+  - [["spine2", "et3"], ["leaf2", "et2"]]
+  - [["spine2", "et4"], ["leaf3", "et2"]]
+  - [["spine2", "et5"], ["leaf4", "et2"]]
+  - [["leaf1", "et3"], ["host10", "et0"]]
+  - [["leaf1", "et4"], ["host11", "et0"]]
+  - [["leaf2", "et3"], ["host20", "et0"]]
+  - [["leaf2", "et4"], ["host21", "et0"]]
+  - [["leaf3", "et3"], ["host30", "et0"]]
+  - [["leaf3", "et4"], ["host31", "et0"]]
+  - [["leaf4", "et3"], ["host40", "et0"]]
+  - [["leaf4", "et4"], ["host41", "et0"]]
+nodes:
+  - spine1:
+    mac: 00:1c:73:b0:c6:01
+    ip_addr: 192.168.1.230
+  - spine2:
+    mac: 00:1c:73:b1:c6:01
+    ip_addr: 192.168.1.231
+  - leaf1:
+    mac: 00:1c:73:b2:c6:01
+    ip_addr: 192.168.1.232
+  - leaf2:
+    mac: 00:1c:73:b3:c6:01
+    ip_addr: 192.168.1.233
+  - leaf3:
+    mac: 00:1c:73:b4:c6:01
+    ip_addr: 192.168.1.234
+  - leaf4:
+    mac: 00:1c:73:b5:c6:01
+    ip_addr: 192.168.1.235
+hosts:
+  - host10:
+    ip_addr: 10.0.12.11
+    mask: 255.255.255.0
+    gateway: 10.0.12.1
+  - host11:
+    ip_addr: 10.0.13.11
+    mask: 255.255.255.0
+    gateway: 10.0.13.1
+  - host20:
+    ip_addr: 10.0.12.21
+    mask: 255.255.255.0
+    gateway: 10.0.12.1
+  - host21:
+    ip_addr: 10.0.13.21
+    mask: 255.255.255.0
+    gateway: 10.0.13.1
+  - host30:
+    ip_addr: 10.0.12.31
+    mask: 255.255.255.0
+    gateway: 10.0.12.1
+  - host31:
+    ip_addr: 10.0.13.31
+    mask: 255.255.255.0
+    gateway: 10.0.13.1
+  - host40:
+    ip_addr: 10.0.12.41
+    mask: 255.255.255.0
+    gateway: 10.0.12.1
+  - host41:
+    ip_addr: 10.0.13.41
+    mask: 255.255.255.0
+    gateway: 10.0.13.1
+iperf:
+  port: 5010
+  brate: 1000000
+  servers:
+    - host10
+    - host30
+    - host31
+  clients:
+    - client: host11
+      target: host30
+    - client: host20
+      target: host10
+    - client: host21
+      target: host31
+commands:
