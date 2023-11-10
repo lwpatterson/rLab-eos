@@ -18,7 +18,8 @@ infra:
   mac_mgmt: False
 images:
   registry: local
-  ceos: 4.28.1.1F
+  ceos: 4.28.0F
+  64-bit: true
   host: 1.0
 links:
   - [["borderleaf1", "et1"], ["borderleaf2", "et1"]]
